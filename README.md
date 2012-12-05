@@ -32,7 +32,7 @@ In the Settings tab of each page you'll find an Access Key text field. You can e
 		</a>
 	<% end_loop %>
 
-This is already implemented in the ssexpress theme.
+This is already implemented in the express theme.
 
 ### Adding an Accessibility Page
 
@@ -47,4 +47,4 @@ The module adds an Accessibility Page page type. Templates for this page can use
 		<% end_loop %>
 	</ul>
 
-The ssexpress theme includes an template for this page type.
+The express theme includes an template for this page type.
