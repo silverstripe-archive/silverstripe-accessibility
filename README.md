@@ -24,27 +24,47 @@ After either installation method, you'll need to run dev/build.
 
 ### Adding Access Keys
 
-In the Settings tab of each page you'll find an Access Key text field. You can enter in any single character in here. This will be available as $AccessKey in the templates, so the following would be a good example of how to display the menus in your templates:
+In the Settings tab of each page you'll find an Access Key text field. You can enter in any single character in here. This will be available as $AccessKey in the templates. In order for accesskeys to be available, they must be defined as links on all pages. One way to do this is within a hidden div in the footer of your page:
 
-	<% loop Menu(1) %>
-		<a href="$Link" title="Go to the $Title.XML page" <% if AccessKey %> accesskey="$AccessKey"<% end_if %>>
-			$MenuTitle.XML
-		</a>
+	<div class="hidden accesskeys">
+	<% loop AccessKeys %>
+		<a href="$Link" accesskey="$AccessKey">$AccessKey = $Title</a>
 	<% end_loop %>
+	</div>
 
-This is already implemented in the express theme.
+This markup can be found in AccessKey.ss, and can be included in your footer as:
+
+	<% include AccessKeys %>
+
+If you do not have styles defined for the hidden class, you should put this in your layout css (or scss) file:
+
+	.hidden{
+		display:none;
+	}
+
+This has already been implemented in the express theme.
 
 ### Adding an Accessibility Page
 
-The module adds an Accessibility Page page type. Templates for this page can used $AccessKeys to get an ordered list of all pages on the site that have an access key set, which they can use to display a list of them all. So for example:
+The module adds an Accessibility Page page type. Templates for this page can use $AccessKeys to list all pages on the site that have an access key set. So for example:
+	
+	<% if AccessKeys %>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Key</th> 
+				<th>Page</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% loop AccessKeys %>
+				<tr>
+					<td>$AccessKey</td>
+					<td><a href="$Link">$Title</a></td>
+				</tr>
+			<% end_loop %>
+		</tbody>
+	</table>
+	<% end_if %>
 
-	<ul class="access-directory">
-		<% loop AccessKeys %>
-			<li>
-				<span class="key">$AccessKey</span>
-				<a href="$Link">$Title</a>
-			</li>
-		<% end_loop %>
-	</ul>
-
-The express theme includes an template for this page type.
+The template for this page type can be found at templates/AccessibilityPage.ss.
