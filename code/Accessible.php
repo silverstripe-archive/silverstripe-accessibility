@@ -25,5 +25,10 @@ class Accessible extends DataExtension {
 		));
 	}
 
+	public function getAccessKeys() {
+		$accessPages = SiteTree::get('SiteTree', "AccessKey != ''", 'AccessKey ASC');
+		return $accessPages;
+	}
+
 	// TODO: Add a form validation step that verifies that there isn't a duplicate access key.
 }
