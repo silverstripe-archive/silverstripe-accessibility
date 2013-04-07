@@ -1,3 +1,3 @@
 <?php
 
-SiteTree::add_extension('Accessible');
+Object::add_extension('SiteTree', 'Accessible');
